@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classement Tournoi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #333;
+            color: white;
+        }
+        .conference-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #333;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Tournoi - Classement Automatique</h2>
+        
+        <div class="conference-title">Conférence 1</div>
+        <table id="conference1">
+            <thead>
+                <tr><th>Rang</th><th>Joueur</th><th>Points</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>Debally</td><td>0</td></tr>
+                <tr><td>2</td><td>Klauser135</td><td>0</td></tr>
+                <tr><td>3</td><td>geek2402</td><td>0</td></tr>
+                <tr><td>4</td><td>kyouka.suigetsu</td><td>0</td></tr>
+                <tr><td>5</td><td>M.KF8</td><td>0</td></tr>
+                <tr><td>6</td><td>Jostar_chaos</td><td>0</td></tr>
+                <tr><td>7</td><td>NemesisVI229</td><td>0</td></tr>
+                <tr><td>8</td><td>Hadkiss47</td><td>0</td></tr>
+                <tr><td>9</td><td>Caerys13</td><td>0</td></tr>
+                <tr><td>10</td><td>Witcher_drk</td><td>0</td></tr>
+                <tr><td>11</td><td>Blue_Night007</td><td>0</td></tr>
+                <tr><td>12</td><td>И1 ・ Le_Psy</td><td>0</td></tr>
+            </tbody>
+        </table>
+        <button onclick="updatePoints('conference1')">Mettre à jour</button>
+
+        <div class="conference-title">Conférence 2</div>
+        <table id="conference2">
+            <thead>
+                <tr><th>Rang</th><th>Joueur</th><th>Points</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>luxux006</td><td>0</td></tr>
+                <tr><td>2</td><td>Kennethctg</td><td>0</td></tr>
+                <tr><td>3</td><td>Poussin069</td><td>0</td></tr>
+                <tr><td>4</td><td>Gastonmhd</td><td>0</td></tr>
+                <tr><td>5</td><td>毒Ñëillö</td><td>0</td></tr>
+                <tr><td>6</td><td>Dylangzn</td><td>0</td></tr>
+                <tr><td>7</td><td>AlchemistCyrus</td><td>0</td></tr>
+                <tr><td>8</td><td>VN~Anonymous</td><td>0</td></tr>
+                <tr><td>9</td><td>dysAkira</td><td>0</td></tr>
+                <tr><td>10</td><td>ANDERSEN5078</td><td>0</td></tr>
+                <tr><td>11</td><td>Topels</td><td>0</td></tr>
+                <tr><td>12</td><td>rahimKill</td><td>0</td></tr>
+            </tbody>
+        </table>
+        <button onclick="updatePoints('conference2')">Mettre à jour</button>
+    </div>
+
+    <script>
+        function updatePoints(conferenceId) {
+            let table = document.getElementById(conferenceId);
+            let rows = Array.from(table.getElementsByTagName("tbody")[0].rows);
+
+            rows.forEach(row => {
+                let playerName = row.cells[1].textContent;
+                let currentPoints = parseInt(row.cells[2].textContent);
+                let newPoints = parseInt(prompt(`Entrez les points pour ${playerName}:`, "0"));
+                
+                if (!isNaN(newPoints)) {
+                    row.cells[2].textContent = currentPoints + newPoints;
+                }
+            });
+
+            sortTable(conferenceId);
+        }
+
+        function sortTable(conferenceId) {
+            let table = document.getElementById(conferenceId);
+            let rows = Array.from(table.getElementsByTagName("tbody")[0].rows);
+
+            rows.sort((a, b) => {
+                let scoreA = parseInt(a.cells[2].textContent);
+                let scoreB = parseInt(b.cells[2].textContent);
+                return scoreB - scoreA;
+            });
+
+            for (let i = 0; i < rows.length; i++) {
+                rows[i].cells[0].textContent = i + 1;
+                table.getElementsByTagName("tbody")[0].appendChild(rows[i]);
+            }
+        }
+    </script>
+</body>
+</html>
