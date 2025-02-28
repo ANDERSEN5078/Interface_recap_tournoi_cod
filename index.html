@@ -76,7 +76,7 @@
                 <tr><td>12</td><td>И1 ・ Le_Psy</td><td>0</td></tr>
             </tbody>
         </table>
-        <button onclick="updatePoints('conference1')">Mettre à jour</button>
+        <button onclick="promptForKey('conference1')">Mettre à jour</button>
 
         <div class="conference-title">Conférence 2</div>
         <table id="conference2">
@@ -98,10 +98,21 @@
                 <tr><td>12</td><td>rahimKill</td><td>0</td></tr>
             </tbody>
         </table>
-        <button onclick="updatePoints('conference2')">Mettre à jour</button>
+        <button onclick="promptForKey('conference2')">Mettre à jour</button>
     </div>
 
     <script>
+        const secretKey = "12345678"; // Remplacez par votre clé secrète
+
+        function promptForKey(conferenceId) {
+            const userKey = prompt("Entrez la clé secrète pour mettre à jour les points:");
+            if (userKey === secretKey) {
+                updatePoints(conferenceId);
+            } else {
+                alert("Clé secrète incorrecte. Accès refusé.");
+            }
+        }
+
         function updatePoints(conferenceId) {
             let table = document.getElementById(conferenceId);
             let rows = Array.from(table.getElementsByTagName("tbody")[0].rows);
